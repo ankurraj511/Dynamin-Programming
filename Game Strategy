@@ -1,0 +1,23 @@
+import java.util.*;
+public class game_strategy {
+	public static int min(int a,int b){return a<b?a:b;}
+	public static int max(int a,int b){return a>b?a:b;}
+	public static int gs1(int p,int q,int[] li,int[][] dp){
+		if(p>q)
+			return 0;
+		if(dp[p][q]!=0)
+			return dp[p][q];
+		dp[p][q]=max(li[q]+min(gs1(p+1,q-1,li,dp),gs1(p,q-2,li,dp)),li[p]+min(gs1(p+2,q,li,dp),gs1(p+1,q-1,li,dp)));
+		return dp[p][q];
+	}
+    public static void main(String args[]) {
+        Scanner s=new Scanner(System.in);
+		int n=s.nextInt();
+		int[] li=new int[n];
+		for(int i=0 ; i<n ; i++)
+			li[i]=s.nextInt();
+		int[][] dp=new int[n][n];
+		int ans=gs1(0,n-1,li,dp);
+		System.out.println(ans);
+    }
+}
